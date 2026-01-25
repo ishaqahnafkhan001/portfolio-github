@@ -1,103 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-
-const slides = [
-    {
-        id: 1,
-        title: "Innovate Your Digital Presence",
-        subtitle: "Modern solutions for forward-thinking brands.",
-        bg: "bg-white"
-    },
-    {
-        id: 2,
-        title: "Design Meets Functionality",
-        subtitle: "Aesthetic interfaces built for seamless performance.",
-        bg: "bg-slate-50"
-    },
-    {
-        id: 3,
-        title: "Future-Ready Architecture",
-        subtitle: "Scalable systems built with the latest MERN technologies.",
-        bg: "bg-white"
-    }
-];
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Canvas } from '@react-three/fiber';
+import { Stars } from '@react-three/drei';
 
 const HeroSection = () => {
-    const [current, setCurrent] = useState(0);
-
-    // Auto-slide every 3 seconds
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-        }, 3000);
-        return () => clearInterval(timer);
-    }, []);
+    // Animation for the "Floating" effect
+    const floatAnimation = {
+        y: [0, -15, 0],
+        transition: {
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
+        }
+    };
 
     return (
-        <section className="relative h-[90vh] w-full overflow-hidden font-sans">
-            <AnimatePresence mode="wait">
-                <motion.div
-                    key={current}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                    className={`absolute inset-0 flex flex-col justify-center px-8 md:px-20 ${slides[current].bg}`}
+        <section className="relative w-full h-screen bg-black overflow-hidden font-sans flex flex-col items-center justify-center">
+
+            {/* --- 3D BACKGROUND: STARS --- */}
+            <div className="absolute inset-0 z-0">
+                <Canvas camera={{ position: [0, 0, 1] }}>
+                    {/* radius: Size of the galaxy
+                depth: How "deep" the stars go
+                count: Number of stars (5000 is dense)
+                factor: Size of stars
+                saturation: 0 = white stars
+                fade: Fades stars at the edges
+                speed: Rotation speed
+            */}
+                    <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+                </Canvas>
+            </div>
+
+            {/* --- Main Foreground Content --- */}
+            <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 pb-20 pointer-events-none">
+
+                {/* 1. Floating Gradient Headline */}
+                <motion.h1
+                    className="text-7xl md:text-9xl font-black tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-800 drop-shadow-2xl"
+                    animate={floatAnimation}
+                    style={{
+                        // Subtle white outline to ensure legibility against stars
+                        WebkitTextStroke: '1px rgba(255,255,255,0.1)'
+                    }}
                 >
-                    <div className="max-w-4xl">
-                        <motion.span
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                            className="text-indigo-600 font-semibold tracking-widest uppercase text-sm"
-                        >
-                            Discover Excellence
-                        </motion.span>
-                        <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                            className="mt-4 text-5xl md:text-7xl font-bold text-slate-900 leading-tight"
-                        >
-                            {slides[current].title}
-                        </motion.h1>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.6 }}
-                            className="mt-6 text-lg md:text-xl text-slate-600 max-w-2xl"
-                        >
-                            {slides[current].subtitle}
-                        </motion.p>
-                    </div>
+                    Turn Your Business Into <br/> a Brand Online
+                </motion.h1>
+
+                {/* 2. Subtitle */}
+                <motion.p
+                    className="mt-8 text-xl md:text-2xl text-neutral-400 max-w-2xl font-light tracking-wide"
+                    animate={floatAnimation}
+                    transition={{ ...floatAnimation.transition, delay: 0.2 }}
+                >
+                    Get a Website That Sells for You 24/7.
+                </motion.p>
+
+                {/* 3. Button (Pointer events auto to make it clickable) */}
+                <motion.div
+                    className="mt-12 pointer-events-auto"
+                    animate={floatAnimation}
+                    transition={{ ...floatAnimation.transition, delay: 0.4 }}
+                >
+                    <button className="group relative px-10 py-4 bg-white text-black rounded-full text-sm font-bold tracking-widest uppercase hover:bg-neutral-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)]">
+                        Start Engine
+                    </button>
                 </motion.div>
-            </AnimatePresence>
 
-            {/* Slide Indicators */}
-            <div className="absolute bottom-10 left-8 md:left-20 flex space-x-3">
-                {slides.map((_, index) => (
-                    <div
-                        key={index}
-                        className={`h-1 transition-all duration-500 rounded-full ${
-                            current === index ? "w-8 bg-indigo-600" : "w-4 bg-slate-300"
-                        }`}
-                    />
-                ))}
             </div>
 
-            {/* Aesthetic Floating Action Button */}
-            <div className="absolute bottom-10 right-8 md:right-20">
-                <button className="group relative flex items-center justify-center px-8 py-4 font-medium text-white transition-all duration-300 bg-indigo-600 rounded-full hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-200 active:scale-95">
-                    <span>Get Started</span>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </button>
-            </div>
+            {/*<div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white via-white/90 to-transparent z-20 pointer-events-none" />*/}
+
         </section>
     );
 };

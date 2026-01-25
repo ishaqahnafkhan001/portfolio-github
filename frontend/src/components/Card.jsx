@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, ArrowRight, Zap } from 'lucide-react';
+import { Check, ArrowRight, Zap, Star } from 'lucide-react';
 
 const products = [
     {
@@ -37,98 +37,149 @@ const products = [
 
 const ProductGrid = () => {
     return (
-        <section className="  py-22 px-12 relative overflow-hidden">
+        <section className="bg-gradient-to-b from-white to-slate-50 relative py-20 md:py-32 px-4 md:px-8 bg-slate-50 overflow-hidden">
 
-            {/* Background decoration (optional subtle shapes) */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-indigo-100/50 rounded-full blur-3xl -z-0 pointer-events-none" />
+            {/* CREATIVE BACKGROUND: A 'Mesh' Gradient */}
+            <div className="absolute inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-100/40 via-white to-white pointer-events-none" />
+
+            {/* Animated Floating Blobs for depth */}
+            <motion.div
+                animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="absolute top-20 right-0 w-[500px] h-[500px] bg-purple-200/30 rounded-full blur-[80px] -z-0"
+            />
+            <motion.div
+                animate={{ rotate: -360, scale: [1, 1.2, 1] }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-200/30 rounded-full blur-[80px] -z-0"
+            />
 
             <div className="max-w-7xl mx-auto relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                {/* Header */}
+                <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+                        Simple Pricing, <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Powerful Results</span>
+                    </h2>
+                    <p className="mt-4 text-slate-500 text-lg">Choose the perfect plan to accelerate your digital transformation.</p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 items-start">
                     {products.map((product, index) => (
-                        <motion.div
-                            key={product.id}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.5 }}
-                            className={`relative bg-white rounded-[2rem] overflow-hidden flex flex-col transition-all duration-500
-                ${product.popular
-                                ? "lg:-mt-12 lg:mb-12 shadow-indigo-200/50 shadow-2xl ring-2 ring-indigo-600 z-20"
-                                : "shadow-lg border border-slate-100 hover:shadow-xl hover:-translate-y-2 z-10"
-                            }`}
-                        >
-                            {/* Most Popular Badge */}
+                        <div key={product.id} className={`relative group ${product.popular ? 'lg:-mt-12' : ''}`}>
+
+                            {/* POPULAR GLOW EFFECT (Only for middle card) */}
                             {product.popular && (
-                                <div className="absolute top-0 left-0 w-full bg-indigo-600 text-white text-xs font-bold py-2 text-center tracking-widest uppercase flex justify-center items-center gap-2">
-                                    <Zap size={14} fill="currentColor" /> Most Popular Choice
-                                </div>
+                                <div className="absolute -inset-[2px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-[2.1rem] opacity-75 blur-sm group-hover:opacity-100 group-hover:blur-md transition-all duration-500" />
                             )}
 
-                            {/* Image Header with Offer Badge */}
-                            <div className={`relative h-48 overflow-hidden ${product.popular ? 'mt-8' : ''}`}>
-                                <div className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full border border-emerald-100 shadow-sm">
-                   <span className="text-emerald-600 text-[10px] font-extrabold tracking-tight uppercase">
-                     Save 20%
-                   </span>
-                                </div>
-                                <img
-                                    src={product.image}
-                                    alt={product.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                                />
-                            </div>
+                            <motion.div
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.15, duration: 0.6, type: "spring" }}
+                                className={`relative h-full bg-white rounded-[2rem] overflow-hidden flex flex-col transition-all duration-500
+                                    ${product.popular
+                                    ? "shadow-2xl shadow-indigo-200/50"
+                                    : "shadow-xl border border-slate-100 hover:shadow-2xl hover:-translate-y-2"
+                                }`}
+                            >
+                                {/* Most Popular Badge */}
+                                {product.popular && (
+                                    <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
+                                )}
 
-                            {/* Content */}
-                            <div className="p-8 flex-grow flex flex-col">
-                                <div className="mb-4">
-                                    <h3 className="text-xl font-bold text-slate-900">{product.title}</h3>
-                                    <p className="mt-2 text-slate-500 text-sm leading-relaxed min-h-[40px]">
-                                        {product.description}
-                                    </p>
+                                {product.popular && (
+                                    <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
+                                        <span className="bg-slate-900 text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg flex items-center gap-1.5">
+                                            <Star size={10} className="text-yellow-400" fill="currentColor" />
+                                            Best Value
+                                        </span>
+                                    </div>
+                                )}
+
+                                {/* Image Section with Zoom Effect */}
+                                <div className="relative h-56 overflow-hidden">
+                                    <div className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full shadow-sm border border-emerald-100 flex items-center gap-1.5">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                        <span className="text-emerald-700 text-[11px] font-bold uppercase tracking-wide">
+                                            Save 20%
+                                        </span>
+                                    </div>
+                                    <img
+                                        src={product.image}
+                                        alt={product.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    />
+                                    {/* Gradient Overlay for text readability on image if needed */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-20" />
                                 </div>
 
-                                <div className="mb-8">
-                                    <span className="text-slate-400 line-through text-sm font-medium">{product.originalPrice}</span>
-                                    <div className="flex items-baseline gap-1">
-                                        <span className="text-4xl font-extrabold text-slate-900 tracking-tight">{product.price}</span>
-                                        <span className="text-slate-400 text-sm font-medium">/project</span>
+                                {/* Content */}
+                                <div className="p-8 flex-grow flex flex-col">
+                                    <div className="mb-6">
+                                        <h3 className="text-2xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                                            {product.title}
+                                        </h3>
+                                        <p className="mt-3 text-slate-500 text-sm leading-relaxed">
+                                            {product.description}
+                                        </p>
+                                    </div>
+
+                                    {/* Pricing Block */}
+                                    <div className="mb-8 bg-slate-50 rounded-2xl p-4 border border-slate-100 group-hover:border-indigo-50 transition-colors">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <span className="text-slate-400 line-through text-sm">{product.originalPrice}</span>
+                                            {product.popular && <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">SAVE $300</span>}
+                                        </div>
+                                        <div className="flex items-baseline gap-1">
+                                            <span className={`text-4xl font-extrabold tracking-tight ${product.popular ? 'text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600' : 'text-slate-900'}`}>
+                                                {product.price}
+                                            </span>
+                                            <span className="text-slate-400 text-sm font-medium">/project</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    <div className="space-y-3 mb-8">
+                                        <button className={`w-full py-4 px-6 rounded-xl text-sm font-bold shadow-lg transition-all transform duration-200 active:scale-[0.98]
+                                            ${product.popular
+                                            ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-indigo-200 hover:brightness-110"
+                                            : "bg-slate-900 text-white hover:bg-slate-800"
+                                        }`}>
+                                            Get Started Now
+                                        </button>
+
+                                        <button className="w-full py-3 px-6 rounded-xl text-sm font-bold text-slate-500 hover:text-indigo-600 transition-colors flex justify-center items-center gap-2 group/btn">
+                                            View Full Features
+                                            <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
+                                        </button>
+                                    </div>
+
+                                    {/* Benefits */}
+                                    <div className="pt-6 border-t border-slate-100 mt-auto">
+                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">
+                                            Everything in {product.popular ? 'Starter' : 'Package'} plus:
+                                        </p>
+                                        <ul className="space-y-3">
+                                            {product.benefits.map((benefit, i) => (
+                                                <li key={i} className="flex items-start text-slate-600 text-sm group/item">
+                                                    <div className={`mt-0.5 mr-3 flex-shrink-0 rounded-full p-0.5 transition-colors duration-300 
+                                                        ${product.popular
+                                                        ? 'bg-indigo-100 text-indigo-600 group-hover/item:bg-indigo-600 group-hover/item:text-white'
+                                                        : 'bg-slate-100 text-slate-500 group-hover/item:bg-slate-900 group-hover/item:text-white'
+                                                    }`}>
+                                                        <Check size={12} strokeWidth={3} />
+                                                    </div>
+                                                    <span className="group-hover/item:text-slate-900 transition-colors">
+                                                        {benefit}
+                                                    </span>
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </div>
                                 </div>
-
-                                {/* Buttons */}
-                                <div className="space-y-3 mb-8">
-                                    <button className="w-full py-3 px-4 rounded-xl text-sm font-bold text-slate-600 border border-slate-200 hover:border-indigo-600 hover:text-indigo-600 transition-colors flex justify-center items-center group">
-                                        View Demo
-                                        <ArrowRight size={16} className="ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                                    </button>
-
-                                    <button className={`w-full py-3 px-4 rounded-xl text-sm font-bold text-white shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]
-                    ${product.popular
-                                        ? "bg-gradient-to-r from-indigo-600 to-indigo-500 shadow-indigo-200"
-                                        : "bg-slate-900 hover:bg-slate-800"
-                                    }`}>
-                                        Choose Plan
-                                    </button>
-                                </div>
-
-                                {/* Benefits List */}
-                                <div className="pt-6 border-t border-slate-100 mt-auto">
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
-                                        Includes:
-                                    </p>
-                                    <ul className="space-y-3">
-                                        {product.benefits.map((benefit, i) => (
-                                            <li key={i} className="flex items-start text-slate-600 text-sm">
-                                                <div className={`mt-0.5 mr-3 flex-shrink-0 rounded-full p-0.5 ${product.popular ? 'bg-indigo-100 text-indigo-600' : 'bg-slate-100 text-slate-500'}`}>
-                                                    <Check size={12} strokeWidth={3} />
-                                                </div>
-                                                {benefit}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>
