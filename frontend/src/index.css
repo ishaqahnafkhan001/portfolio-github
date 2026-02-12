@@ -1,1 +1,4 @@
 @import "tailwindcss";
+#hero, #products, #why-us, #impact, #features, #faq {
+    background-color: transparent !important;
+}

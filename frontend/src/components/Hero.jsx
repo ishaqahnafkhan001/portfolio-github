@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Stars } from '@react-three/drei';
+import ProductGrid from "./Card.jsx";
+import {Link } from 'react-router-dom';
 
 const HeroSection = () => {
     // Animation for the "Floating" effect
@@ -62,14 +64,31 @@ const HeroSection = () => {
                     animate={floatAnimation}
                     transition={{ ...floatAnimation.transition, delay: 0.4 }}
                 >
-                    <button className="group relative px-10 py-4 bg-white text-black rounded-full text-sm font-bold tracking-widest uppercase hover:bg-neutral-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)]">
-                        Start Engine
-                    </button>
+                    <a
+                        href="#start-selling"
+                        className="
+        group relative
+        px-10 py-4
+        bg-white text-black
+        rounded-full
+        text-sm font-bold tracking-widest uppercase
+        shadow-[0_0_20px_rgba(255,255,255,0.3)]
+
+        /* --- Tailwind Animation Classes --- */
+        transition-all duration-300 ease-in-out
+        hover:bg-neutral-200
+        hover:shadow-[0_0_40px_rgba(255,255,255,0.6)]
+        hover:scale-105
+        hover:-translate-y-1
+        active:scale-95
+    "
+                    >
+                        Start Selling
+                    </a>
                 </motion.div>
 
             </div>
 
-            {/*<div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white via-white/90 to-transparent z-20 pointer-events-none" />*/}
 
         </section>
     );

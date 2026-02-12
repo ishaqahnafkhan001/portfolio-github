@@ -12,7 +12,7 @@ const HookSection = () => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900"
                 >
-                    Turn Your Business Into a <span className="text-indigo-600">Brand</span> This New Year
+                    Turn Your Business Into a <span className="text-indigo-600">Brand</span>
                 </motion.h2>
 
                 {/* Optional: A very subtle decorative line below the text */}
