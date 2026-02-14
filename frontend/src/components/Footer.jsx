@@ -12,7 +12,7 @@ const Footer = () => {
                     {/* Column 1: Brand & Newsletter */}
                     <div className="space-y-6">
                         <h2 className="text-2xl font-extrabold text-white tracking-tight">
-                            Brand<span className="text-indigo-500">Name</span>.
+                            Scale<span className="text-indigo-500">Up</span>.
                         </h2>
                         <p className="text-sm text-slate-400 leading-relaxed">
                             Empowering businesses with future-ready digital solutions. Join our newsletter for the latest updates.
@@ -81,7 +81,7 @@ const Footer = () => {
                 {/* Bottom Section: Copyright */}
                 <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-xs text-slate-500">
-                        &copy; {new Date().getFullYear()} BrandName Inc. All rights reserved.
+                        &copy; {new Date().getFullYear()} ScaleUp Inc. All rights reserved.
                     </p>
 
                     <div className="flex gap-6 text-xs text-slate-500">
