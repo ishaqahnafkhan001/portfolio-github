@@ -2,7 +2,7 @@ import React from 'react';
 import SideNavigation from "./components/SideNavigation.jsx"; // Import the new component
 
 // Components
-import ProductGrid from "./components/Card.jsx";
+import ProductGrid from "./components/Card/Card.jsx";
 import WhyUsSection from "./components/Why_us.jsx";
 import FeatureShowcase from "./components/Best_features.jsx";
 import ImpactSection from "./components/ImpactSection.jsx";

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Stars } from '@react-three/drei';
-import ProductGrid from "./Card.jsx";
+import ProductGrid from "./Card/Card.jsx";
 import {Link } from 'react-router-dom';
 
 const HeroSection = () => {
